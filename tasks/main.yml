@@ -1,0 +1,51 @@
+---
+
+- name: "Print info about droplet"
+  debug:
+   msg: "Info is: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+- name: "Only passing an individual fqdn to remove"
+  block:
+  
+    - name: "Register DNS Entry for {{ add_digitalocean_dns_entries_server_fqdn }}"
+      digital_ocean_domain: 
+        state: present
+        name: "{{ add_digitalocean_dns_entries_server_fqdn }}"
+        ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+        oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
+      ignore_errors: yes
+
+    - name: "Register DNS Entry for www.{{ add_digitalocean_dns_entries_server_fqdn }}"
+      digital_ocean_domain: 
+        state: present
+        name: "www.{{ add_digitalocean_dns_entries_server_fqdn }}"
+        ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+        oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
+      ignore_errors: yes
+
+  when: not add_digitalocean_dns_entries_use_list_of_server_fqdn
+  
+- name: "Passing a list of fqdn's to remove"
+  block:
+  
+    - name: "Register DNS Entry with DigitalOcean"
+      digital_ocean_domain: 
+        state: present
+        name: "{{ item.url }}"
+        ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+        oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
+      with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
+      when: item.need_to_register_dns != 'false'
+
+    - name: "Register www DNS Entry with DigitalOcean"
+      digital_ocean_domain: 
+        state: present
+        name: "www.{{ item.url }}"
+        ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+        oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
+      with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
+      when: item.need_to_register_dns != 'false'
+
+  when: add_digitalocean_dns_entries_use_list_of_server_fqdn
+
+

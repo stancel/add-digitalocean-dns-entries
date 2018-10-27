@@ -1,0 +1,34 @@
+galaxy_info:
+  author: 'Brad Stancel'
+  description: Role for creating DNS entries for domains whose nameservers are already pointed to DigitalOcean's nameservers
+  company: YourOnlineDept.com
+
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  github_branch: master
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+  - name: Debian
+    versions:
+    - all
+  - name: RHEL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+
+  galaxy_tags: 
+    - DigitalOcean
+    - web
+    - provision
+    - provisioning
+
+
+dependencies: []
