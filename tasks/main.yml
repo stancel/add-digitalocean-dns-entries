@@ -36,6 +36,7 @@
         oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
       with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
       when: item.need_to_register_dns != 'false'
+      ignore_errors: yes
 
     - name: "Register www DNS Entry with DigitalOcean"
       digital_ocean_domain: 
@@ -45,6 +46,7 @@
         oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
       with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
       when: item.need_to_register_dns != 'false'
+      ignore_errors: yes
 
   when: add_digitalocean_dns_entries_use_list_of_server_fqdn
 
