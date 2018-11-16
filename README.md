@@ -36,7 +36,7 @@ List of Sites to setup DigitalOcean DNS Entries for. Not needed unless the "add_
 	add_digitalocean_dns_entries_sites_to_set_up:
 	  - {
 		  url: 'investmentappraiser.com',
-		  need_to_register_dns: 'true',
+		  register_dns: true
 		}
 ```
 
