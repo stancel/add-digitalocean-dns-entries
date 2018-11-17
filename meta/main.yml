@@ -12,12 +12,11 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - trusty
-    - xenial
+    - all
   - name: Debian
     versions:
     - all
-  - name: RHEL
+  - name: EL
     versions:
     - all
   - name: Fedora
@@ -25,10 +24,9 @@ galaxy_info:
     - all
 
   galaxy_tags: 
-    - DigitalOcean
+    - digitalocean
     - web
     - provision
     - provisioning
-
 
 dependencies: []
