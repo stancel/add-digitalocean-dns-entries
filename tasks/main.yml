@@ -35,7 +35,7 @@
         ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
         oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
       with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
-      when: item.register_dns == true
+      when: item.register_dns
       ignore_errors: yes
 
     - name: "Register www DNS Entry with DigitalOcean"
@@ -45,7 +45,7 @@
         ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
         oauth_token: "{{ add_digitalocean_dns_entries_do_token }}"
       with_items: '{{ add_digitalocean_dns_entries_sites_to_set_up }}' 
-      when: item.register_dns == true
+      when: item.register_dns
       ignore_errors: yes
 
   when: add_digitalocean_dns_entries_use_list_of_server_fqdn
